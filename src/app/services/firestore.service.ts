@@ -11,7 +11,7 @@ export class FirestoreService {
   db: Firestore;
 
   constructor(private fireApp: FireappService) {
-    this.db = getFirestore(fireApp.app);
+    this.db = getFirestore(this.fireApp.app);
   }
 
 //   initDb(app: any){
