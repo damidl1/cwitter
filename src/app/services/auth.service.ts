@@ -24,7 +24,9 @@ export class AuthService {
         const uid = user.uid;
         console.log('user', user);
         this.firebaseUser.next(user);
-
+        this.firestore.getOurUser(uid).then(ourU => {
+        this.ourUser.next(ourU.data() as OurUser);
+        })
       } else {
         console.log('user non c\'è');
         this.firebaseUser.next(null);
@@ -39,7 +41,7 @@ export class AuthService {
       .then((userCredential) => {
 
         const user = userCredential.user;
-        this.firestore.postOurUser(newUser, user.uid)
+        this.firestore.postOurUser(newUser, user.uid).then(() => {this.ourUser.next(newUser)});
 
       })
       .catch((error) => {
@@ -59,6 +61,7 @@ export class AuthService {
         const user = userCredential.user;
         console.log('login eseguita', user);
         this.firestore.getOurUser(user.uid);
+
       })
       .catch((error) => {
         const errorCode = error.code;

@@ -37,19 +37,15 @@ export class FirestoreService {
 
   postOurUser(ourUser: OurUser, uid: string){
     const docUrl = doc(this.db, 'user', uid);
-    setDoc(docUrl, ourUser).then((data) => {
-      console.log('riuscito', data)
-    }).catch(error => {
-      console.log('merda!', error.message);
-    })
+    return setDoc(docUrl, ourUser)
+      // console.log('riuscito', data)
+
+      // console.log('merda!', error.message);
+
   }
 
   getOurUser(uid: string){
     const docUrl = doc(this.db, 'user', uid);
-    getDoc(docUrl).then((snap) => {
-      console.log('riuscito', snap.data())
-    }).catch(error => {
-      console.log('merda!', error.message);
-    })
+    return getDoc(docUrl)
   }
 }
